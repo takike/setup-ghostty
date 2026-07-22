@@ -1,0 +1,128 @@
+# Ghostty 設定ファイル
+# 場所: ~/.config/ghostty/config
+# リロード: ⌘⇧,  / 構文チェック: ghostty +validate-config
+# 全オプションの説明: ghostty +show-config --default --docs | less
+
+# ------------------------------------------------------------------
+# フォント
+# ------------------------------------------------------------------
+# デフォルトは同梱の JetBrains Mono。Nerd Font シンボルは内蔵フォール
+# バックがあるため、パッチ済みフォントのインストールは不要。
+# font-family = "JetBrains Mono"
+font-size = 14
+
+# Retina での描画をわずかに太らせて読みやすくする(iTerm2 の
+# "Use thin strokes" の逆方向の調整に相当)
+font-thicken = true
+
+# ------------------------------------------------------------------
+# テーマ・外観
+# ------------------------------------------------------------------
+# macOS の外観モードに追従してライト/ダークを自動切替。
+# 候補探し: ghostty +list-themes(プレビュー付き)
+theme = light:catppuccin-latte,dark:catppuccin-mocha
+
+# 半透明 + ネイティブブラー(background-opacity は反映に再起動が必要)
+background-opacity = 0.95
+background-blur = 20
+# 1.3+ の Liquid Glass 風にするなら:
+# background-blur = macos-glass-regular
+
+# テキストと縁の余白
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+
+# 入力中はマウスカーソルを隠す
+mouse-hide-while-typing = true
+
+# 非フォーカスの分割ペインを薄くして現在地を分かりやすく(0.15〜1)
+unfocused-split-opacity = 0.85
+
+# アプリアイコンを変えたい場合(1.2+): official / retro / glass /
+# holographic / microchip / blueprint など
+# macos-icon = retro
+
+# ------------------------------------------------------------------
+# スクロールバック
+# ------------------------------------------------------------------
+# 値はバイト数(デフォルト 10MB)。⌘F 検索(1.3+)の対象になるので
+# 多めに確保しておくと便利。メモリは遅延確保なので普段は無害。
+scrollback-limit = 100000000
+
+# ネイティブスクロールバー(1.3+)。system / never
+# scrollbar = system
+
+# ------------------------------------------------------------------
+# シェル統合
+# ------------------------------------------------------------------
+# zsh/bash/fish を自動検出して統合コードを自動注入(デフォルト)。
+# .zshrc への追記は一切不要。
+shell-integration = detect
+
+# デフォルト機能(cursor, sudo, title)に加えて SSH 対応を有効化:
+#   ssh-env      = SSH 先に安全な TERM を渡す
+#   ssh-terminfo = 接続先へ xterm-ghostty の terminfo を自動配布
+shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
+
+# ------------------------------------------------------------------
+# クリップボード
+# ------------------------------------------------------------------
+# 選択しただけでシステムクリップボードへコピー
+# (iTerm2 の "Copy to pasteboard on selection" 相当)
+copy-on-select = clipboard
+
+# コピー時に行末の空白を除去
+clipboard-trim-trailing-spaces = true
+
+# ------------------------------------------------------------------
+# ウィンドウ・タブ・分割
+# ------------------------------------------------------------------
+# 終了時のウィンドウ・タブ・分割構成を常に復元
+# (iTerm2 の Window Arrangement の代わり)
+window-save-state = always
+
+# 新しいタブ/分割で現在のディレクトリを引き継ぐかを個別制御(1.3+)
+# tab-inherit-working-directory = true
+# split-inherit-working-directory = true
+
+# ------------------------------------------------------------------
+# 通知(1.3+)
+# ------------------------------------------------------------------
+# 他アプリで作業中、10 秒以上かかったコマンドが終わったら通知する
+notify-on-command-finish = unfocused
+notify-on-command-finish-after = 10s
+
+# ------------------------------------------------------------------
+# macOS
+# ------------------------------------------------------------------
+# Option を Meta(Alt)として使う場合に有効化。
+# "left" なら左 Option だけ Alt になり、右 Option は日本語環境の
+# 記号入力(Option+¥ で \ など)用に残せる。
+# macos-option-as-alt = left
+
+# タイトルバーのスタイル: native / transparent / tabs / hidden
+# macos-titlebar-style = transparent
+
+# 自動更新: off / check / download、チャンネル: stable / tip
+# auto-update = check
+# auto-update-channel = stable
+
+# ------------------------------------------------------------------
+# キーバインド
+# ------------------------------------------------------------------
+# デフォルトが iTerm2 とほぼ同じ配置(⌘D 分割 / ⌘⌥矢印 移動 /
+# ⌘⇧Enter 最大化 / ⌘K クリア / ⌘F 検索)なので追加は最小限。
+# 一覧: ghostty +list-keybinds / アクション: ghostty +list-actions
+
+# Quick Terminal: どのアプリからでも ⌘` でスライドイン
+# (システム設定でアクセシビリティ許可が必要)
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+
+# Claude Code などの AI CLI で Shift+Enter を改行にする
+# (iTerm2 の /terminal-setup 相当)
+keybind = shift+enter=text:\n
+
+# Quick Terminal の位置・挙動の調整例:
+# quick-terminal-position = top
+# quick-terminal-autohide = true
